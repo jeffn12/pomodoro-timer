@@ -22,6 +22,18 @@ export default class App extends React.Component {
     }
   }
 
+  sessionUp = () => {
+    if(this.state.breakLength <= 59) { 
+      this.setState( {sessionLength: this.state.sessionLength + 1} );
+    }
+  }
+
+  sessionDown = () => {
+    if(this.state.breakLength >= 2) {
+      this.setState( {sessionLength: this.state.sessionLength - 1} )
+    }
+  }
+
   render() {
     return (
       <div id="root">
@@ -36,9 +48,9 @@ export default class App extends React.Component {
             </div>
             <div id="session-label" className="label">
               <h3>Session Label</h3>
-              <button id="session-increment">Increase</button>
+              <button id="session-increment" onClick={this.sessionUp}>Increase</button>
               <div id="session-length">{this.state.sessionLength}</div>
-              <button id="session-decrement">Decrease</button>
+              <button id="session-decrement" onClick={this.sessionDown}>Decrease</button>
             </div>
           </div>
           
