@@ -23,13 +23,13 @@ export default class App extends React.Component {
   }
 
   sessionUp = () => {
-    if(this.state.breakLength <= 59) { 
+    if(this.state.sessionLength <= 59) { 
       this.setState( {sessionLength: this.state.sessionLength + 1} );
     }
   }
 
   sessionDown = () => {
-    if(this.state.breakLength >= 2) {
+    if(this.state.sessionLength >= 2) {
       this.setState( {sessionLength: this.state.sessionLength - 1} )
     }
   }
