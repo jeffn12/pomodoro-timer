@@ -34,6 +34,13 @@ export default class App extends React.Component {
     }
   }
 
+  reset = () => {
+    this.setState( {
+      breakLength: 5,
+      sessionLength: 25
+    });
+  }
+
   render() {
     return (
       <div id="root">
@@ -61,7 +68,7 @@ export default class App extends React.Component {
 
           <div id="controls">
             <button id="start_stop">Start/Stop</button>
-            <button id="reset">Reset</button>
+            <button id="reset" onClick={this.reset}>Reset</button>
           </div>
           
         </div>
