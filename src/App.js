@@ -9,7 +9,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       breakLength: 5,
-      sessionLength: 25
+      sessionLength: 25,
+      timerRun: false,
     }
   }
 
@@ -40,7 +41,22 @@ export default class App extends React.Component {
   reset = () => {
     this.setState( {
       breakLength: 5,
-      sessionLength: 25
+      sessionLength: 25,
+      timerRun: false,
+    });
+  }
+
+  timerStart = () => {
+    alert('timer start');
+    this.setState( {
+      timerRun: true,
+    });
+  }
+
+  timerStop = () => {
+    alert('timer stop');
+    this.setState( {
+      timerRun: false,
     });
   }
 
@@ -60,6 +76,7 @@ export default class App extends React.Component {
           time={this.state.sessionLength} 
         />  
         <TimerControls
+          runToggle={this.state.timerRun === true ? this.timerStop : this.timerStart }
           reset={this.reset}
         />
       </div>   
