@@ -1,5 +1,6 @@
 import React from 'react';
-import Timer from './Timer.js'
+import Timer from './components/Timer'
+import TimerSettings from './components/TimerSettings'
 import './App.css';
 
 export default class App extends React.Component {
@@ -44,34 +45,21 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div id="root">
-        <div id="wrapper">
-          
-          <div id="label-section">
-            <div id="break-label" className="label">
-              <h3>Break Label</h3>
-              <button id="break-increment" onClick={this.breakUp}>Increase</button>
-              <div id="break-length">{this.state.breakLength}</div>
-              <button id="break-decrement" onClick={this.breakDown}>Decrease</button>
-            </div>
-            <div id="session-label" className="label">
-              <h3>Session Label</h3>
-              <button id="session-increment" onClick={this.sessionUp}>Increase</button>
-              <div id="session-length">{this.state.sessionLength}</div>
-              <button id="session-decrement" onClick={this.sessionDown}>Decrease</button>
-            </div>
-          </div>
-          
-          <div id="countdown-section">
-              <Timer 
-                name="Session"
-                time={this.state.sessionLength} 
-                reset={this.reset}
-                />
-          </div>
-          
-        </div>
-      </div>
+      <div id="wrapper">
+        <TimerSettings 
+          breakUp={this.breakUp}
+          breakDown={this.breakDown}
+          sessionUp={this.sessionUp}
+          sessionDown={this.sessionDown}
+          breakLength={this.state.breakLength}
+          sessionLength={this.state.sessionLength}
+        />
+        <Timer 
+          name="Session"
+          time={this.state.sessionLength} 
+          reset={this.reset}
+          />  
+      </div>   
     )
   }
 }
