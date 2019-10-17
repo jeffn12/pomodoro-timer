@@ -1,6 +1,7 @@
 import React from 'react';
-import Timer from './components/Timer'
-import TimerSettings from './components/TimerSettings'
+import TimerDisplay from './components/TimerDisplay';
+import TimerSettings from './components/TimerSettings';
+import TimerControls from './components/TimerControls';
 import './App.css';
 
 export default class App extends React.Component {
@@ -54,11 +55,13 @@ export default class App extends React.Component {
           breakLength={this.state.breakLength}
           sessionLength={this.state.sessionLength}
         />
-        <Timer 
+        <TimerDisplay 
           name="Session"
           time={this.state.sessionLength} 
+        />  
+        <TimerControls
           reset={this.reset}
-          />  
+        />
       </div>   
     )
   }
