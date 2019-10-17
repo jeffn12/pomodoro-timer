@@ -1,4 +1,5 @@
 import React from 'react';
+import Timer from './Timer.js'
 import './App.css';
 
 export default class App extends React.Component {
@@ -62,13 +63,11 @@ export default class App extends React.Component {
           </div>
           
           <div id="countdown-section">
-              <div id="timer-label">Session</div>
-              <div id="time-left">25:00</div>
-          </div>
-
-          <div id="controls">
-            <button id="start_stop">Start/Stop</button>
-            <button id="reset" onClick={this.reset}>Reset</button>
+              <Timer 
+                name="Session"
+                time={this.state.sessionLength} 
+                reset={this.reset}
+                />
           </div>
           
         </div>
