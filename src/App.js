@@ -1,6 +1,6 @@
 import React from 'react';
-import TimerDisplay from './components/TimerDisplay';
 import TimerSettings from './components/TimerSettings';
+import TimerDisplay from './components/TimerDisplay';
 import TimerControls from './components/TimerControls';
 import './App.css';
 
