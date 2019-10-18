@@ -28,13 +28,13 @@ export default class App extends React.Component {
 
   sessionUp = () => {
     if(this.state.sessionLength <= 59) { 
-      this.setState( {sessionLength: this.state.sessionLength + 1} );
+      this.setState( {sessionLength: this.state.sessionLength + 1, min: this.state.min + 1} );
     }
   }
 
   sessionDown = () => {
     if(this.state.sessionLength >= 2) {
-      this.setState( {sessionLength: this.state.sessionLength - 1} )
+      this.setState( {sessionLength: this.state.sessionLength - 1, min: this.state.min - 1} )
     }
   }
 
@@ -47,14 +47,14 @@ export default class App extends React.Component {
   }
 
   timerStart = () => {
-    alert('timer start');
+    //alert('timer start');
     this.setState( {
       timerRun: true,
-    });
+    } );
   }
 
   timerStop = () => {
-    alert('timer stop');
+    //alert('timer stop');
     this.setState( {
       timerRun: false,
     });
@@ -73,7 +73,7 @@ export default class App extends React.Component {
         />
         <TimerDisplay 
           name="Session"
-          time={this.state.sessionLength} 
+          time={this.state.sessionLength}
         />  
         <TimerControls
           runToggle={this.state.timerRun === true ? this.timerStop : this.timerStart }
