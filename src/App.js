@@ -11,6 +11,7 @@ export default class App extends React.Component {
       breakLength: 5,
       sessionLength: 25,
       timerRun: false,
+      time: "25:00",
     }
   }
 
@@ -43,13 +44,33 @@ export default class App extends React.Component {
       breakLength: 5,
       sessionLength: 25,
       timerRun: false,
+      time: "1:00"
     });
   }
 
   timerStart = () => {
-    //alert('timer start');
+    const time = this.state.time.split(':');
+    const sec = (parseInt(time[0]) * 60 + parseInt(time[1]));
     this.setState( {
       timerRun: true,
+    } );
+    this.start(sec);
+  }
+
+  start = (sec) => {
+    setInterval( () => {
+      sec--; 
+      this.tick(sec); 
+
+      if(sec < 1) {
+        clearInterval();
+      }
+    }, 1000);
+  }
+
+  tick = (sec) => {
+    this.setState( {
+      time: `${Math.floor(sec / 60).toString()}:${(sec % 60).toString()}`,
     } );
   }
 
@@ -73,7 +94,7 @@ export default class App extends React.Component {
         />
         <TimerDisplay 
           name="Session"
-          time={this.state.sessionLength}
+          time={this.state.time}
         />  
         <TimerControls
           runToggle={this.state.timerRun === true ? this.timerStop : this.timerStart }
