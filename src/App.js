@@ -29,13 +29,13 @@ export default class App extends React.Component {
 
   sessionUp = () => {
     if(this.state.sessionLength <= 59 && !this.state.timerRun) { 
-      this.setState( {sessionLength: this.state.sessionLength + 1, min: this.state.min + 1} );
+      this.setState( {sessionLength: this.state.sessionLength + 1,} );
     }
   }
 
   sessionDown = () => {
     if(this.state.sessionLength >= 2 && !this.state.timerRun) {
-      this.setState( {sessionLength: this.state.sessionLength - 1, min: this.state.min - 1} )
+      this.setState( {sessionLength: this.state.sessionLength - 1,} )
     }
   }
 
@@ -44,7 +44,7 @@ export default class App extends React.Component {
       breakLength: 5,
       sessionLength: 25,
       timerRun: false,
-      time: "1:00"
+      time: "25:00"
     });
   }
 
@@ -58,12 +58,12 @@ export default class App extends React.Component {
   }
 
   start = (sec) => {
-    setInterval( () => {
+    let x = setInterval( () => {
       sec--; 
       this.tick(sec); 
 
-      if(sec < 1) {
-        clearInterval();
+      if(sec < 1 || !this.state.timerRun) {
+        clearInterval(x);
       }
     }, 1000);
   }
