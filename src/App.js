@@ -16,25 +16,25 @@ export default class App extends React.Component {
   }
 
   breakUp = () => {
-    if(this.state.breakLength <= 59) { 
+    if(this.state.breakLength <= 59 && !this.state.timerRun) { 
       this.setState( {breakLength: this.state.breakLength + 1} );
     }
   }
 
   breakDown = () => {
-    if(this.state.breakLength >= 2) {
+    if(this.state.breakLength >= 2 && !this.state.timerRun) {
       this.setState( {breakLength: this.state.breakLength - 1} )
     }
   }
 
   sessionUp = () => {
-    if(this.state.sessionLength <= 59) { 
+    if(this.state.sessionLength <= 59 && !this.state.timerRun) { 
       this.setState( {sessionLength: this.state.sessionLength + 1, min: this.state.min + 1} );
     }
   }
 
   sessionDown = () => {
-    if(this.state.sessionLength >= 2) {
+    if(this.state.sessionLength >= 2 && !this.state.timerRun) {
       this.setState( {sessionLength: this.state.sessionLength - 1, min: this.state.min - 1} )
     }
   }
