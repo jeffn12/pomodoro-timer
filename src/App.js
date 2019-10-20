@@ -29,13 +29,13 @@ export default class App extends React.Component {
 
   sessionUp = () => {
     if(this.state.sessionLength <= 59 && !this.state.timerRun) { 
-      this.setState( {sessionLength: this.state.sessionLength + 1,} );
+      this.setState( {sessionLength: this.state.sessionLength + 1, time: `${this.state.sessionLength + 1}:00` });
     }
   }
 
   sessionDown = () => {
     if(this.state.sessionLength >= 2 && !this.state.timerRun) {
-      this.setState( {sessionLength: this.state.sessionLength - 1,} )
+      this.setState( {sessionLength: this.state.sessionLength - 1, time: `${this.state.sessionLength - 1}:00` } )
     }
   }
 
@@ -52,7 +52,6 @@ export default class App extends React.Component {
   timerStart = () => {
     this.setState( {
       timerRun: true,
-      time: `${this.state.sessionLength}:00`
     } );
     const time = this.state.time.split(':');
     const sec = (parseInt(time[0]) * 60 + parseInt(time[1]));
@@ -61,13 +60,14 @@ export default class App extends React.Component {
 
   start = (sec) => {
     if(!this.state.timerRun) {
-    let x = setInterval( () => {
-      sec--; 
-      if(sec < 1 || !this.state.timerRun) {
-        clearInterval(x);
-      }
-      else this.tick(sec);
-    }, 1000); }
+      let x = setInterval( () => {
+        sec--; 
+        if(sec < 0 || !this.state.timerRun) {
+          clearInterval(x);
+        }
+        else this.tick(sec);
+      }, 1000); 
+    }
   }
 
   tick = (sec) => {
