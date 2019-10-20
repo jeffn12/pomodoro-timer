@@ -40,6 +40,7 @@ export default class App extends React.Component {
   }
 
   reset = () => {
+    this.timerStop();
     this.setState( {
       breakLength: 5,
       sessionLength: 25,
@@ -49,23 +50,24 @@ export default class App extends React.Component {
   }
 
   timerStart = () => {
-    const time = this.state.time.split(':');
-    const sec = (parseInt(time[0]) * 60 + parseInt(time[1]));
     this.setState( {
       timerRun: true,
+      time: `${this.state.sessionLength}:00`
     } );
+    const time = this.state.time.split(':');
+    const sec = (parseInt(time[0]) * 60 + parseInt(time[1]));
     this.start(sec);
   }
 
   start = (sec) => {
+    if(!this.state.timerRun) {
     let x = setInterval( () => {
       sec--; 
-      this.tick(sec); 
-
       if(sec < 1 || !this.state.timerRun) {
         clearInterval(x);
       }
-    }, 1000);
+      else this.tick(sec);
+    }, 1000); }
   }
 
   tick = (sec) => {
