@@ -52,9 +52,11 @@ export default class App extends React.Component {
   timerStart = () => {
     this.setState( {
       timerRun: true,
+      sessionLength: this.state.sessionLength,
+      time: `${this.state.sessionLength}:00`
     } );
-    const time = this.state.time.split(':');
-    const sec = (parseInt(time[0]) * 60 + parseInt(time[1]));
+    const arr = this.state.time.split(':');
+    const sec = parseInt(arr[0]) * 60 + parseInt(arr[1]);
     this.start(sec);
   }
 
@@ -77,7 +79,6 @@ export default class App extends React.Component {
   }
 
   timerStop = () => {
-    //alert('timer stop');
     this.setState( {
       timerRun: false,
     });
