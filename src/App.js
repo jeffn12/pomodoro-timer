@@ -12,6 +12,7 @@ export default class App extends React.Component {
       sessionLength: 25,
       timerRun: false,
       time: "25:00",
+      timerType: "Session",
     }
   }
 
@@ -45,28 +46,36 @@ export default class App extends React.Component {
       breakLength: 5,
       sessionLength: 25,
       timerRun: false,
-      time: "25:00"
+      time: "25:00",
+      timerType: "Session"
     });
   }
 
   timerStart = () => {
     this.setState( {
       timerRun: true,
-    } );
-    const arr = this.state.time.split(':');
-    const sec = parseInt(arr[0]) * 60 + parseInt(arr[1]);
-    this.start(sec);
+    }, function() { 
+      const arr = this.state.time.split(':');
+      const sec = parseInt(arr[0]) * 60 + parseInt(arr[1]);
+      this.start(sec);}  
+    );
+    
   }
 
   start = (sec) => {
-    if(!this.state.timerRun) {
+    alert('timerStart' + this.state.time + this.state.timerRun + sec);
+    if(this.state.timerRun) {
       let x = setInterval( () => {
+        console.log(sec);
         sec--; 
-        if(sec < 0 || !this.state.timerRun) {
+        if(!this.state.timerRun || sec < 0) {
           clearInterval(x);
         }
+        if(sec < 0) {
+          this.endTimer();
+        }
         else this.tick(sec);
-      }, 1000); 
+      }, 250); 
     }
   }
 
@@ -74,6 +83,19 @@ export default class App extends React.Component {
     this.setState( {
       time: `${Math.floor(sec / 60).toString()}:${(sec % 60).toString()}`,
     } );
+  }
+
+  endTimer = () => {
+    this.timerStop();
+    switch(this.state.timerType) {
+      case 'Session':
+        this.setState( {
+          timerType: 'Break',
+          time: this.state.breakLength.toString() + ":00",
+        }, function() {this.timerStart()} );
+      case 'Break':
+        break;
+    }
   }
 
   timerStop = () => {
@@ -94,7 +116,7 @@ export default class App extends React.Component {
           sessionLength={this.state.sessionLength}
         />
         <TimerDisplay 
-          name="Session"
+          name={this.state.timerType}
           time={this.state.time}
         />  
         <TimerControls
