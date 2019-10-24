@@ -66,14 +66,17 @@ export default class App extends React.Component {
     if(this.state.timerRun) {
       let x = setInterval( () => {
         sec--; 
-        if(!this.state.timerRun || sec < 0) {
+        if(!this.state.timerRun || sec < 0) { 
           clearInterval(x);
+          if(sec < 0) {
+            this.endTimer();
+          }
         }
-        if(sec < 0) {
-          this.endTimer();
+        else {
+          this.tick(sec);
         }
-        else this.tick(sec);
       }, 1000); 
+      
     }
   }
 
@@ -84,24 +87,24 @@ export default class App extends React.Component {
   }
 
   endTimer = () => {
-    this.timerStop();
     switch(this.state.timerType) {
       case 'Session':
         this.setState( {
           timerType: 'Break',
           time: this.state.breakLength.toString() + ":00",
-        }, function() {this.timerStart()} );
+        });
         break;
       case 'Break':
         this.setState( {
           timerType: 'Session',
           time: this.state.sessionLength.toString() + ":00",
-        }, function() {this.timerStart()} );
+        });
         break;
       default:
         alert('Timer broken');
         break;
     }
+    this.timerStart();
   }
 
   timerStop = () => {
