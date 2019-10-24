@@ -69,14 +69,16 @@ export default class App extends React.Component {
         if(!this.state.timerRun || sec < 0) { 
           clearInterval(x);
           if(sec < 0) {
-            this.endTimer();
+            this.setState( {
+              timerType: this.state.timerType === 'Session' ? 'Break' : 'Session',
+              time: this.state.timerType === 'Session' ? this.state.breakLength.toString() + ":00" : this.state.sessionLength.toString() + ":00"
+            }, this.timerStart() );
           }
         }
         else {
           this.tick(sec);
         }
       }, 1000); 
-      
     }
   }
 
@@ -84,27 +86,6 @@ export default class App extends React.Component {
     this.setState( {
       time: `${Math.floor(sec / 60).toString()}:${(sec % 60).toString()}`,
     } );
-  }
-
-  endTimer = () => {
-    switch(this.state.timerType) {
-      case 'Session':
-        this.setState( {
-          timerType: 'Break',
-          time: this.state.breakLength.toString() + ":00",
-        });
-        break;
-      case 'Break':
-        this.setState( {
-          timerType: 'Session',
-          time: this.state.sessionLength.toString() + ":00",
-        });
-        break;
-      default:
-        alert('Timer broken');
-        break;
-    }
-    this.timerStart();
   }
 
   timerStop = () => {
