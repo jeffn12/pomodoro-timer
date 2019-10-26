@@ -50,6 +50,8 @@ export default class App extends React.Component {
       time: "25:00",
       timerType: "Session"
     });
+    this.audioBeep.pause();
+    this.audioBeep.currentTime = 0;
   }
 
   timerStart = () => {
@@ -88,6 +90,7 @@ export default class App extends React.Component {
   }
 
   endTimer = () => {
+    this.audioBeep.play();
     switch(this.state.timerType) {
       case 'Session':
         this.setState( {
@@ -134,6 +137,9 @@ export default class App extends React.Component {
           timerRun={this.state.timerRun}
           reset={this.reset}
         />
+        <audio id="beep" preload="auto" 
+          src="https://goo.gl/65cBl1"
+          ref={(audio) => { this.audioBeep = audio; }} />
       </div>   
     )
   }
