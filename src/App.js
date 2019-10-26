@@ -2,6 +2,7 @@ import React from 'react';
 import TimerSettings from './components/TimerSettings';
 import TimerDisplay from './components/TimerDisplay';
 import TimerControls from './components/TimerControls';
+import accurateInterval from 'accurate-interval';
 import './App.css';
 
 export default class App extends React.Component {
@@ -41,7 +42,7 @@ export default class App extends React.Component {
   }
 
   reset = () => {
-    this.timerStop();
+    //this.timerStop();
     this.setState( {
       breakLength: 5,
       sessionLength: 25,
@@ -130,6 +131,7 @@ export default class App extends React.Component {
         />  
         <TimerControls
           runToggle={this.state.timerRun === true ? this.timerStop : this.timerStart }
+          timerRun={this.state.timerRun}
           reset={this.reset}
         />
       </div>   
