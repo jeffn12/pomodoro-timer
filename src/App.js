@@ -55,7 +55,9 @@ export default class App extends React.Component {
       time: "25:00",
       timerType: "Session"
     });
-  };
+    this.audioBeep.pause();
+    this.audioBeep.currentTime = 0;
+  }
 
   timerStart = () => {
     this.setState(
@@ -114,12 +116,14 @@ export default class App extends React.Component {
         />
         <TimerDisplay name={this.state.timerType} time={this.state.time} />
         <TimerControls
-          runToggle={
-            this.state.timerRun === true ? this.timerStop : this.timerStart
-          }
+          runToggle={this.state.timerRun === true ? this.timerStop : this.timerStart }
+          timerRun={this.state.timerRun}
           reset={this.reset}
         />
-      </div>
-    );
+        <audio id="beep" preload="auto" 
+          src="https://goo.gl/65cBl1"
+          ref={(audio) => { this.audioBeep = audio; }} />
+      </div>   
+    )
   }
 }
