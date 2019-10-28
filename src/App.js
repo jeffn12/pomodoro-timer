@@ -60,13 +60,13 @@ export default class App extends React.Component {
   }
 
   timerStart = () => {
+    const arr = this.state.time.split(":");
+    const sec = parseInt(arr[0], 10) * 60 + parseInt(arr[1], 10);
     this.setState(
       {
         timerRun: true
       },
       function() {
-        const arr = this.state.time.split(":");
-        const sec = parseInt(arr[0], 10) * 60 + parseInt(arr[1], 10);
         this.start(sec);
       }
     );
@@ -79,6 +79,7 @@ export default class App extends React.Component {
         if (!this.state.timerRun || sec < 0) {
           clearInterval(x);
           if(sec < 0) {
+            this.audioBeep.play();
             this.setState( {
               timerType: this.state.timerType === 'Session' ? 'Break' : 'Session',
               time: this.state.timerType === 'Session' ? this.state.breakLength.toString() + ":00" : this.state.sessionLength.toString() + ":00"
