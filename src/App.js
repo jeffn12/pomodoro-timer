@@ -2,7 +2,6 @@ import React from 'react';
 import TimerSettings from './components/TimerSettings';
 import TimerDisplay from './components/TimerDisplay';
 import TimerControls from './components/TimerControls';
-import accurateInterval from 'accurate-interval';
 import './App.css';
 
 export default class App extends React.Component {
@@ -42,7 +41,7 @@ export default class App extends React.Component {
   }
 
   reset = () => {
-    //this.timerStop();
+    this.timerStop();
     this.setState( {
       breakLength: 5,
       sessionLength: 25,
@@ -96,19 +95,19 @@ export default class App extends React.Component {
         this.setState( {
           timerType: 'Break',
           time: this.state.breakLength.toString() + ":00",
-        });
+        }, this.timerStart() );
         break;
       case 'Break':
         this.setState( {
           timerType: 'Session',
           time: this.state.sessionLength.toString() + ":00",
-        });
+        }, this.timerStart() );
         break;
       default:
         alert('Timer broken');
         break;
     }
-    this.timerStart();
+    //this.timerStart();
   }
 
   timerStop = () => {
